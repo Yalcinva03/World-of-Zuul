@@ -101,7 +101,15 @@ public class Person{
         }
     }
   
-  public void endGame(){
-    
+  public void endGame(){ /* denne funktion kan flyttes til en EndGameScreen klasse senere*/
+    /* denne linje er til at kunne starte endGameScreen eller således*/
+    if(climatePoints >=0){
+      System.out.println("You did well! your eating habits didnt have a negative impact on the climate.");
+      System.out.println("Your score was "+climatePoints+" Climate Points");
+    }
+    else{
+      System.out.println("Better luck next time! your eating habits had a negative impact on the climate.");
+      System.out.println("Your score was "+climatePoints+" Climate Points");
+    }
   }
 }
