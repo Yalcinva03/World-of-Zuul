@@ -2,114 +2,93 @@ package worldOfZuul.implementation;
 
 import java.util.Scanner;
 
-public class Person{
-  private String name;
-  private double foodPoints = 100;
-  private double climatePoints = 0;
-  private double maxFoodPoints = 100; //dette kan ændres hvis vi ændrer mening senere
-  private double moveEnergyUsed = 30; //dette kan også ændres hvis vi ændrer mening senere
-  
-  //Setter og getter til navn på Person
-  public void setName(String name){
-    this.name = name;
-  }
-  public String getName(){
-    return name;
-  }
-  
-  // her er funktionerne til at tilføje eller fjerne points fra en form for "bar" eller et attributerne af med max
-  public void addFoodPoints(double points){
-    if(foodPoints <= maxFoodPoints){
-      foodPoints = foodPoints + points;
-    }
-    else{
-      System.out.println("You are already full!")
-    }
-    
-    if(foodpoints >= maxFoodPoints){
-      foodPoints = 100;
-      System.out.println("You have eaten yourself full!")
-      }
-  }
-  public void removeFoodPoints(double points){
-    if(foodPoints - points > 0){
-      foodPoints = foodPoints - points;
-    }
-    else(foodPoints - points <=0){
-      endGame();
-    }
-  }
-  
-  public void addClimatePoints(double points){
-    climatePoints += points;
-  }
-  
-  public void removeClimatePoints(double points){
-    climatePoints -= points;
-  }
-  
-  public void move(String /*Ved ikke hvad vi skal have her endnu*/){
-    removeFoodPoints(moveEnergyUsed);
-  }
-  
-  public void initName(){
-        boolean dontcont = false;
-        while(dontcont == false) {
-            if (dontcont == false) {
-                Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-                System.out.println("Enter username:");
-                name = myObj.nextLine();  // Read user input
-                if (name == "") {
-                    System.out.println("Please enter a username!");
-                    System.out.println("");
-                } else {
+public class Person {
+    private String name;
+    private double foodPoints = 100;
+    private double climatePoints = 0;
+    private final double MAXFOODPOINTS = 100; // her indstilles maks antallet af foodpoints - konstanter i java skrives i caps
+    private final double MOVEENERGY = 30; // her indstilles energiforbrug per move - konstanter i java skrives i caps
 
-                    System.out.println("Username is: " + name);  // Output user input
-                    Person user = new Person(name);
-                    dontcont = true;
-                }
+
+    /* Setter og getter til navn på Person */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    /* Setter til navn ud fra konsolinput - metoden kan skelne mellem omdøbning og først navngivning */
+    public void setNameFromInput() {
+        Scanner scan = new Scanner(System.in); // tager input fra konsolen
+
+        /* denne blok udføres kun ved omdøbning */
+        if (name != null) { // hvis name ikke er 'null', blev der allerede oprettet et navn og koden i blokken udføres
+            System.out.println("Do you want to change your username? \nType 'yes' or 'no'");
+            while (!scan.hasNext("yes") && !scan.hasNext("no") && !scan.hasNext("y") && !scan.hasNext("n")) { // koden i while-loop bliver udført, hver gang der ikke blev typet yes/y/no/n -> hasNext() returner bool og 'kigger' kun på linjen, hvorved linjen efterfølgende stadig kan udlæses. Blev en linje udlæst, kan den ikke udlæses igen.
+                scan.nextLine(); // hopper i nœste linje idet linjen uden et yes/no udlæses
+            }
+            if (scan.nextLine().trim().equalsIgnoreCase("no") || scan.nextLine().trim().equalsIgnoreCase("n")) {  // linjen med yes/no udlæses, da koden i while-loopen ikke har udlæst den - trim() fjerner mellemrum fra string linjen
+                System.out.println("Returning to game...");
+                return;
             }
         }
+
+
+        /* denne blok udføres altid (medmindre man svared 'no' før */
+        System.out.println("Please enter a new username: ");
+        setName(scan.nextLine().trim()); // sender input til setName() metoden
+
+        if (name.trim().isEmpty()) {  // string -> trim() fjerner mellemrum af string -> is empty kigger om string er tom
+            System.out.print("This is not a username.");
+            name = null;    // for at være sikker på, at der ikke spørges (igen) efter om man vil omdøbe sig
+            setNameFromInput();
+        } else {
+            System.out.println("Your username is now '" + name + "'");
+        }
+
+        scan.close();
     }
-    public void setNameChallenge(){
-        boolean changeNameChallenge = false;
-        String newUserNameTest;
-        System.out.println("Do you want to change your username?");
-        System.out.println("Type yes or no");
-        while(changeNameChallenge == false) {
 
-            Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-            newUserNameTest = myObj.nextLine();  // Read user input
 
-            if (newUserNameTest.equals("yes")) {
-                Scanner myObjTwo = new Scanner(System.in);
-                System.out.println("Please enter a new username!");
 
-                name = myObjTwo.nextLine();
-                System.out.println("Your username is now '" + name + "'");
-                System.out.println("Returning to game...");
-                break;
-            }
+    /* Tilføje eller fjerne foodpoints -> max food points defineres i starten */
+    public void addFoodPoints(double points) {
+        if (foodPoints <= MAXFOODPOINTS) {
+            foodPoints = foodPoints + points;
+        } else {
+            System.out.println("You are already full!");
+        }
 
-            if (newUserNameTest.equals("no")) {
-                System.out.println("Returning to game...");
-
-                break;
-            } else {
-                System.out.println("Please type yes or no");
-            }
+        if (foodPoints >= MAXFOODPOINTS) {
+            foodPoints = 100;
+            System.out.println("You have eaten yourself full!");
         }
     }
-  
-  public void endGame(){ /* denne funktion kan flyttes til en EndGameScreen klasse senere*/
-    /* denne linje er til at kunne starte endGameScreen eller således*/
-    if(climatePoints >=0){
-      System.out.println("You did well! your eating habits didnt have a negative impact on the climate.");
-      System.out.println("Your score was "+climatePoints+" Climate Points");
+
+    public void removeFoodPoints(double points) {
+        if (foodPoints - points > 0) {
+            foodPoints -= points;
+        } else if (foodPoints - points <= 0) {
+            GameOver.endGame(climatePoints);
+        }
     }
-    else{
-      System.out.println("Better luck next time! your eating habits had a negative impact on the climate.");
-      System.out.println("Your score was "+climatePoints+" Climate Points");
+
+
+    /* Tilføje eller fjerne climatepoints */
+    public void addClimatePoints(double points) {
+        climatePoints += points;
     }
-  }
+
+    public void removeClimatePoints(double points) {
+        climatePoints -= points;
+    }
+
+
+    /* Skal udføres hver gang spilleren bevæger sig (fra rum til rum) */
+    public void move() {
+        removeFoodPoints(MOVEENERGY);
+    }
+
 }
