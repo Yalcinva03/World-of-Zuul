@@ -36,7 +36,7 @@ public class Person {
         }
 
 
-        /* denne blok udføres altid (medmindre man svared 'no' før */
+        /* denne blok udføres altid (medmindre man svarede 'no' før */
         System.out.println("Please enter a new username: ");
         setName(scan.nextLine().trim()); // sender input til setName() metoden
 
