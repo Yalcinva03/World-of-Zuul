@@ -36,7 +36,7 @@ public class Person {
         }
 
 
-        /* denne blok udføres altid (medmindre man svared 'no' før */
+        /* denne blok udføres altid (medmindre man svarede 'no' før */
         System.out.println("Please enter a new username: ");
         setName(scan.nextLine().trim()); // sender input til setName() metoden
 
@@ -62,7 +62,7 @@ public class Person {
         }
 
         if (foodPoints >= MAXFOODPOINTS) {
-            foodPoints = 100;
+            foodPoints = MAXFOODPOINTS;
             System.out.println("You have eaten yourself full!");
         }
     }
