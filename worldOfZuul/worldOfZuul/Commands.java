@@ -2,7 +2,7 @@ package worldOfZuul;
 
 public enum Commands
 {
-    GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), INVENTORY ("inventory");
+    GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), INVENTORY ("inventory"), EAT("eat");
     
     private String commandName;
     
