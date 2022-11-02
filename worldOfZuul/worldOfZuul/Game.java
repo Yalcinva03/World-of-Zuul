@@ -1,5 +1,7 @@
 package worldOfZuul;
 
+import worldOfZuul.implementation.Map;
+
 import java.util.List;
 
 public class Game {
@@ -13,7 +15,10 @@ public class Game {
     }
 
     private void createRooms() {
-        Room outside, theatre, pub, lab, office;
+        Map map = new Map(9,9);
+        currentRoom = map.getMiddleRoom();
+
+        /*Room outside, theatre, pub, lab, office;
 
         outside = new Room("outside the main entrance of the university");
         theatre = new Room("in a lecture theatre");
@@ -34,7 +39,7 @@ public class Game {
 
         office.setExit("west", lab);
 
-        currentRoom = outside;
+        currentRoom = outside;*/
     }
 
     public boolean goRoom(Command command) {

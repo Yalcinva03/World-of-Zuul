@@ -1,21 +1,15 @@
 package worldOfZuul.implementation;
 import java.util.ArrayList;
 
-public class Inventory {
+public interface Inventory {
 
-    private ArrayList<Item> inventory = new ArrayList<Item>();
+    ArrayList<Item> INVENTORY = new ArrayList<Item>();
 
-    public void addItem(Item item) {
-       inventory.add(item);
-    }
+    public void addItem(Item item);
 
-    public void removeItem(Item item) {
-        inventory.remove(item);
-    }
+    public void removeItem(Item item);
 
-    public ArrayList<Item> getItems() {
-        return inventory;
-    }
+    public ArrayList<Item> getItems();
 
 
 

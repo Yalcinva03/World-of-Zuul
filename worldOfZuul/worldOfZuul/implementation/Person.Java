@@ -1,13 +1,27 @@
 package worldOfZuul.implementation;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Person {
+public class Person implements Inventory{
     private String name;
     private double foodPoints = 100;
     private double climatePoints = 0;
     private final double MAXFOODPOINTS = 100; // her indstilles maks antallet af foodpoints - konstanter i java skrives i caps
     private final double MOVEENERGY = 30; // her indstilles energiforbrug per move - konstanter i java skrives i caps
+
+    /* Inventory */
+    public void addItem(Item item) {
+        INVENTORY.add(item);
+    }
+    public void removeItem(Item item){
+        INVENTORY.remove(item);
+    }
+    public ArrayList<Item> getItems(){
+        return INVENTORY;
+    }
+
+
 
 
     /* Setter og getter til navn på Person */

@@ -8,12 +8,14 @@ package worldOfZuul.textUI;
 import worldOfZuul.Command;
 import worldOfZuul.Commands;
 import worldOfZuul.Game;
+import worldOfZuul.implementation.Person;
 
 /**
  *
  * @author ancla
  */
 public class CommandLineClient {
+    Person person = new Person();
 
     private Parser parser;
     private Game game;
@@ -59,6 +61,10 @@ public class CommandLineClient {
         if (commandWord == Commands.UNKNOWN) {
             System.out.println("I don't know what you mean...");
             return false;
+        }
+        if (commandWord == Commands.INVENTORY) {
+            System.out.println();
+
         }
 
         if (commandWord == Commands.HELP) {
