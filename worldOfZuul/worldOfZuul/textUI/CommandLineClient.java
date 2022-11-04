@@ -9,6 +9,7 @@ import worldOfZuul.Command;
 import worldOfZuul.Commands;
 import worldOfZuul.Game;
 import worldOfZuul.implementation.Inventory;
+import worldOfZuul.implementation.Item;
 import worldOfZuul.implementation.Person;
 
 /**
@@ -17,10 +18,13 @@ import worldOfZuul.implementation.Person;
  */
 public class CommandLineClient {
     Person person = new Person();
+    @Override
+    public String toString(){
+        Item.getName(Inventory.INVENTORY);
+    }
 
     private Parser parser;
     private Game game;
-
     public CommandLineClient() {
         game = new Game();
         parser = new Parser(game);
@@ -88,8 +92,21 @@ public class CommandLineClient {
             }
 
         } else if (commandWord == Commands.EAT){
-            if(Inventory.getItems() == String.contains(command.getCommandValue())){/*der skal være noget her der kan sige*/
-
+            if(command.hasCommandValue()){
+                for (Item i : person.getItems()) {
+                    if(commandWord.toString().equalsIgnoreCase(i.getName())) {
+                        person.getItems().remove(i);
+                        break;
+                    }
+                    else{
+                        System.out.println("You don't have that, so you can't eat it...");
+                        break;
+                    }
+                }
+            }
+            else{
+                System.out.println("You forgot to say what you wanted to eat :/");
+                System.out.println("Try again!");
             }
         }
 
