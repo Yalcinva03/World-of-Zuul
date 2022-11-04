@@ -8,6 +8,7 @@ package worldOfZuul.textUI;
 import worldOfZuul.Command;
 import worldOfZuul.Commands;
 import worldOfZuul.Game;
+import worldOfZuul.implementation.Inventory;
 import worldOfZuul.implementation.Person;
 
 /**
@@ -86,7 +87,12 @@ public class CommandLineClient {
                 System.out.println("Quit what?");
             }
 
+        } else if (commandWord == Commands.EAT){
+            if(Inventory.getItems() == String.contains(command.getCommandValue())){/*der skal være noget her der kan sige*/
+
+            }
         }
+
         return wantToQuit;
     }
 }
