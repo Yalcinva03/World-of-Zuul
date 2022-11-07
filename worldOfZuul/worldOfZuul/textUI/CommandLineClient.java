@@ -18,10 +18,6 @@ import worldOfZuul.implementation.Person;
  */
 public class CommandLineClient {
     Person person = new Person();
-    @Override
-    public String toString(){
-        Item.getName(Inventory.INVENTORY);
-    }
 
     private Parser parser;
     private Game game;
@@ -68,7 +64,10 @@ public class CommandLineClient {
             return false;
         }
         if (commandWord == Commands.INVENTORY) {
-            System.out.println();
+            System.out.println("These are the items you have in your inventory");
+            for (Item i : Inventory.INVENTORY) {
+                System.out.println(i);
+            }
 
         }
 
